@@ -6,20 +6,20 @@ import Footer from "@/components/footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Next App",
-	description: "Next.js starter app",
+  title: { default: "Next App Home Page", template: "%s | Next.js 14" },
+  description: "Next.js starter app",
 };
 
 export default function RootLayout({ children }) {
-	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<div className="container">
-					<Navbar />
-					{children}
-					<Footer />
-				</div>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <div className="container">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
 }
