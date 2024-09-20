@@ -1,28 +1,48 @@
+import { Post, User } from "./models";
+import { connectToDb } from "./utils";
+import { unstable_noStore as noStore } from "next/cache";
+
 export const getPosts = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    next: { revalidate: 3600 },
-  });
-  if (!res.ok) {
-    throw new Error("Something went wrong");
+  try {
+    connectToDb();
+    const posts = await Post.find();
+    return posts;
+  } catch (err) {
+    console.log(err);
+    throw new Error("fail to fetch posts QQ");
   }
-  return res.json();
 };
 
 export const getPost = async (slug) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
-  if (!res.ok) {
-    throw new Error("Something went wrong");
+  try {
+    connectToDb();
+    const post = await Post.findOne({ slug });
+    return post;
+  } catch (err) {
+    console.log(err);
+    throw new Error("fail to fetch post QQ");
   }
-  return res.json();
 };
 
 export const getUser = async (userId) => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${userId}`,
-    { cache: "no-store" }
-  );
-  if (!res.ok) {
-    throw new Error("Something went wrong");
+  noStore();
+  try {
+    connectToDb();
+    const user = await User.findById(userId);
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("fail to fetch user QQ");
   }
-  return res.json();
+};
+
+export const getUsers = async () => {
+  try {
+    connectToDb();
+    const users = await User.find();
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw new Error("fail to fetch users QQ");
+  }
 };
