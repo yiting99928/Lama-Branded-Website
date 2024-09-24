@@ -1,4 +1,4 @@
-import PostUser from "@/components/postUser/postUser";
+import PostUser from "@/components/postUser/PostUser";
 import styles from "./singlePost.module.css";
 import Image from "next/image";
 import { Suspense } from "react";
